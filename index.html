@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проект Л.Е.К.Т.О.Р</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0d1d30, #1d1d1d, #000000);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .character-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .character-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .character-card:hover .character-image {
+            height: 350px;
+            filter: brightness(1.1);
+        }
+
+        .character-info {
+            padding: 20px;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .character-card:hover .character-info {
+            opacity: 1;
+            max-height: 500px;
+        }
+
+        .character-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #ffcc00;
+        }
+
+        .character-role {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #aaa;
+            font-style: italic;
+        }
+
+        .character-description {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .character-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .detail {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Стили для карточек "Скоро" */
+        .coming-soon-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            min-height: 400px;
+            position: relative;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+        }
+
+        .coming-soon-image {
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5rem;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .coming-soon-text {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .coming-soon-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .coming-soon-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Проект Л.Е.К.Т.О.Р</h1>
+            <p class="subtitle">Доступные для чтения персонажи:</p>
+        </header>
+
+        <div class="characters-grid">
+            <!-- Персонаж 1 -->
+            <div class="character-card">
+                <img src="img/5422863366659113545 (1).jpg" alt="Милена Альт" class="character-image">
+                <div class="character-info">
+                    <h2 class="character-name">Милена Альт</h2>
+                    <p class="character-role">Работница TheRo</p>
+                    <p class="character-description">
+                       
+                     
+                        Двое детей: старший сын ??? [Чел] и младшая дочь Эмили<br>
+                        Работала на компанию несколько лет<br>
+                        После одного случая начала сомневаться в компании и её экспериментах<br>
+                        Решив пойти против системы, сильно заплатила за это.<br>
+                        В тот же вечер, по возвращению домой к семье, в дом ворвались<br>
+                        оперативники компании, застрелил мужа и забрав детей в роль био материала и подопотных<br>
+                        В том числе и сама стала жертвой опытов, вскоре которых скончалась.
+                    </p>
+                    <div class="character-details">
+                        <span class="detail">МЕРТВА</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Персонаж 2 -->
+            <div class="character-card">
+                <img src="img/ser.jpg" alt="Сергей Дин" class="character-image">
+                <div class="character-info">
+                    <h2 class="character-name">Сергей Дин</h2>
+                    <p class="character-role">Глава Инженрного отсека</p>
+                    <p class="character-description">
+                        Взял себе в 8ом классе псевдоним Серж.<br>
+                        который считает теперь своим новым именем.<br>
+                        с 6го класса увлекался инженерией и физикой.<br>
+                        на столько что несколько раз приходилось ремонтировать гараж<br>
+                        где он и проводил свои эксперименты.<br>
+                        дикий фанат рока, на столько что стал использовать его как оружие.<br>
+                        получил свою первую грамоту за успехи в науке на втором курсе колледжа<br>
+                        даже в условиях апокалипсиса, продолжает быть самим собой.
+                    </p>
+                    <div class="character-details">
+                        <span class="detail">ЖИВОЙ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Персонаж 3 -->
+            <div class="character-card">
+                <img src="img/emi.jpg" alt="Эмили Альт" class="character-image">
+                <div class="character-info">
+                    <h2 class="character-name">Эмили Альт</h2>
+                    <p class="character-role">. . .</p>
+                    <p class="character-description">
+                        Родители: Милена Альт и Кристофер Альт<br>
+                        Младшая сестра Чела.<br>
+                        Любознательная и задорная девченка.<br>
+                        Предпочитает играться с машинками, нежели с куклами.<br>
+                        Стала одной из подопытных.<br>
+                        Tvos-19 к ней прижился лучше всего.<br>
+                        Любимый цвет лиловый.<br>
+                        Где то в глубине души понимает что делает и кто она, но не может противостоять.<br>
+                        Обожает чернику.<br>
+                        Носит заколку, подаренную ей Челом на 10ый день рождения.
+                    </p>
+                    <div class="character-details">
+                        <span class="detail">ЗАРАЖЕНА</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Персонаж 4 -->
+            <div class="character-card">
+                <img src="img/ket.jpg" alt="Кети Вайс" class="character-image">
+                <div class="character-info">
+                    <h2 class="character-name">Кети Вайс</h2>
+                    <p class="character-role">Глава Мед-отсека</p>
+                    <p class="character-description">
+                        Мало что известно о её личности.<br>
+                        Немой человек, предпочитающий делать, вместо того что бы долго думать.<br>
+                        В прошлом хирург, заслуживщая титул одной из лучших хирургов страны, за время до аварии.<br>
+                        Глубокие познания в медицине и анатомии.<br>
+                        Какой бы хрубкой она не показалась, это вкорне не так.<br>
+                        Некоторые сотрудники даже шугались её на работе.<br>
+                       
+                    </p>
+                    <div class="character-details">
+                        <span class="detail">ЖИВАЯ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка "Скоро" 1 -->
+            <div class="coming-soon-card pulse-animation">
+                <div class="coming-soon-image">
+                    ?
+                </div>
+                <div class="coming-soon-text">
+                    <h2 class="coming-soon-title">Новый персонаж</h2>
+                    <p class="coming-soon-subtitle">Скоро в базе данных</p>
+                </div>
+            </div>
+
+            <!-- Карточка "Скоро" 2 -->
+            <div class="coming-soon-card pulse-animation">
+                <div class="coming-soon-image">
+                    ?
+                </div>
+                <div class="coming-soon-text">
+                    <h2 class="coming-soon-title">Новый персонаж</h2>
+                    <p class="coming-soon-subtitle">Скоро в базе данных</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Проект Л.Е.К.Т.О.Р &copy; 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Добавляем небольшую анимацию при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.character-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>
